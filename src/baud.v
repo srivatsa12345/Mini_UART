@@ -1,7 +1,7 @@
 
 `timescale 1ns / 1ps
 
-module baud #(parameter XTAL_CLK=10000000,BAUD=2400)(
+module baud #(parameter XTAL_CLK=100000000,BAUD=2400)(
     input sys_clk,sys_rst,
     output reg uart_clk
     );

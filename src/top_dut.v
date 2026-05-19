@@ -1,3 +1,4 @@
+
 `include "trans.v"
 `include "rec.v"
 `include "baud.v"
@@ -9,9 +10,9 @@ module top(
 
     output uart_XMIT_dataH,xmit_doneH,rec_readyH,rec_busy,xmit_active,
     output [7:0] rec_dataH,
-        output  uart_clk,
-        output [7:0]temp
+        output  uart_clk
     );
+    
     baud #(.XTAL_CLK(100000000),.BAUD(2400)) m1(
     .sys_clk(sys_clk),.sys_rst(sys_rst_l),
     .uart_clk(uart_clk)
@@ -26,7 +27,7 @@ module top(
     receiver #(.WIDTH(8)) m3(
     .sys_rst(sys_rst_l), .uart_clk(uart_clk), .uart_REC_dataH(uart_REC_dataH),
     .rec_readyH(rec_readyH), .rec_busyH(rec_busy),
-    .rec_dataH(rec_dataH), .temp(temp)
+    .rec_dataH(rec_dataH)
     );
     
     
