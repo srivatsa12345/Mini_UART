@@ -1,4 +1,3 @@
-
 `include "trans.v"
 `include "rec.v"
 `include "baud.v"
@@ -29,9 +28,4 @@ module top(
     .rec_readyH(rec_readyH), .rec_busyH(rec_busy),
     .rec_dataH(rec_dataH)
     );
-    
-    
-
-
 endmodule
-

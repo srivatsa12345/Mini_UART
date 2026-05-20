@@ -1,4 +1,3 @@
-
 `timescale 1ns / 1ps
 
 module receiver #(parameter WIDTH=8) (
@@ -26,7 +25,6 @@ module receiver #(parameter WIDTH=8) (
     always @ (posedge uart_clk or negedge sys_rst) begin  
         if (!sys_rst) begin
             count<=4'd0;
-            rec_readyH<=1'b1;
         end else begin
             if ((c_state==WAIT)||(c_state==STOP)) count<=count+1'b1;
             else count<=4'b0000;
@@ -37,6 +35,7 @@ module receiver #(parameter WIDTH=8) (
         case(c_state)
             IDLE:begin
                 rec_busyH=1'b0;
+                rec_readyH=1'b1;
                 if (!uart_REC_dataH) begin
                     nxt_state=WAIT;
                 end else nxt_state=IDLE;
@@ -66,11 +65,9 @@ module receiver #(parameter WIDTH=8) (
                 end
             end
             STOP:begin
-                if(ff[0]) begin
-                    rec_dataH=temp;
-                    rec_readyH=1'b1;
-                end else rec_readyH=1'b0;
+                if(ff[0]) rec_dataH=temp;
                 temp={WIDTH{1'b0}};
+                rec_readyH=1'b1;
                 rec_busyH=1'b0;
                 nxt_state=IDLE;
             end
@@ -78,4 +75,3 @@ module receiver #(parameter WIDTH=8) (
         endcase
     end
 endmodule
-

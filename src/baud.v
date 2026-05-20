@@ -1,11 +1,10 @@
-
 `timescale 1ns / 1ps
 
 module baud #(parameter XTAL_CLK=100000000,BAUD=2400)(
     input sys_clk,sys_rst,
     output reg uart_clk
     );
-    reg [$clog2(XTAL_CLK/(BAUD*16*2))+1:0]count;
+    reg [$clog2(XTAL_CLK/(BAUD*16*2))-1:0]count;
     always @ (posedge sys_clk or negedge sys_rst) begin
         if (!sys_rst) begin
             count<=32'b0;

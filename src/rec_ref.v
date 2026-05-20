@@ -1,4 +1,3 @@
-
 `timescale 1ns / 1ps
 
 module rec_ref #(parameter WIDTH=8)(
@@ -45,9 +44,9 @@ module rec_ref #(parameter WIDTH=8)(
                                 if(!sys_rst_ref) disable repeat_block;
                             end
                             if (uart_REC_dataH_ref) begin
-                                rec_dataH_ref=temp_ref; 
-                                rec_readyH_ref=1'b1;
-                            end else rec_readyH_ref=1'b0;
+                                rec_dataH_ref=temp_ref;
+                            end 
+                            rec_readyH_ref=1'b1;
                             rec_busyH_ref=1'b0;
                             temp_ref={WIDTH{1'b0}};
                         end
@@ -55,12 +54,11 @@ module rec_ref #(parameter WIDTH=8)(
                 end
             end else begin
                 rec_busyH_ref=1'b0;
+                rec_readyH_ref=1'b1;
                 temp_ref={WIDTH{1'b0}};
                 if (rec_dataH_ref==={WIDTH{1'bx}}) rec_dataH_ref={WIDTH{1'b0}};
-                if (rec_readyH_ref===1'bx) rec_readyH_ref=1'b1;
                 @(posedge uart_clk_ref);
             end
         end
     end
 endmodule
-

@@ -1,4 +1,3 @@
-
 `timescale 1ns / 1ps
 
 module trans_ref #(parameter WIDTH=8) (
@@ -43,4 +42,3 @@ module trans_ref #(parameter WIDTH=8) (
         end
     end
 endmodule
-

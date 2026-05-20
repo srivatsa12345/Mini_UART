@@ -1,4 +1,3 @@
-
 `include "trans_ref.v"
 `include "rec_ref.v"
 `timescale 1ns / 1ps
@@ -28,4 +27,3 @@ module top_ref(
     .rec_dataH_ref(rec_dataH_ref)
     );
 endmodule
-

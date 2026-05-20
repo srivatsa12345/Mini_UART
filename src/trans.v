@@ -1,4 +1,3 @@
-
 `timescale 1ns / 1ps
 
 module transmitter #(parameter WIDTH=8)(
@@ -27,8 +26,8 @@ module transmitter #(parameter WIDTH=8)(
                 if (xmitH) begin
                     nxt_state=START;
                     data=xmit_dataH;
+                    word_count=WIDTH+1;
                 end
-                word_count=WIDTH+1;
             end
             START:begin
                 xmit_active=1'b1;
@@ -44,8 +43,13 @@ module transmitter #(parameter WIDTH=8)(
                     if (count==4'b1110) nxt_state=TRANS;
                     else nxt_state=WAIT;
                 end else begin
-                    if (count==4'b1110) nxt_state=IDLE;
-                    else nxt_state=WAIT;
+                    if (count==4'b1110) begin
+                        if (xmitH) begin
+                            nxt_state=START;
+                            data=xmit_dataH;
+                            word_count=WIDTH+1;
+                        end else nxt_state=IDLE;
+                    end else nxt_state=WAIT;
                 end
             end
             TRANS:begin
@@ -71,4 +75,3 @@ module transmitter #(parameter WIDTH=8)(
         end
     end
 endmodule
-
